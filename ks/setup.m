@@ -85,7 +85,7 @@ end
 
 %
 TOL_VFI = 1e-7;
-TOL_OPT = 1e-8;
+TOL_OPT = 1e-10;
 TOL_EQ = 1e-6;
 PRINT_FREQ = 100;
 PRINT_FREQ_SIMULATE = 1000;

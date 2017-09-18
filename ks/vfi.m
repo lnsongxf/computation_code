@@ -1,5 +1,5 @@
 function [vfiResult, exitFlag] = vfi(params,warmUp)
-NUM_THREADS=params.NUM_THREADS; PRINT_FREQ=params.PRINT_FREQ; PROFILE=params.PROFILE; TOL_OPT=params.TOL_OPT; TOL_VFI=params.TOL_VFI; ZETrans=params.ZETrans; alpha=params.alpha; betaGrid=params.betaGrid; betaPts=params.betaPts; betaTrans=params.betaTrans; delta=params.delta; eBetaEPrimeBetaPrimeZZprime=params.eBetaEPrimeBetaPrimeZZprime; eBetaTrans=params.eBetaTrans; eBetaTransConditionalOnZ=params.eBetaTransConditionalOnZ; eBetaTransInv=params.eBetaTransInv; eEPrimeZZPrime=params.eEPrimeZZPrime; eGrid=params.eGrid; ePts=params.ePts; eTransConditionalOnZ=params.eTransConditionalOnZ; fullDiscountedTrans=params.fullDiscountedTrans; fullTrans=params.fullTrans; i_beta=params.i_beta; i_betap=params.i_betap; i_e=params.i_e; i_ep=params.i_ep; i_z=params.i_z; i_zp=params.i_zp; kBarGrid=params.kBarGrid; kBarPts=params.kBarPts; kGrid=params.kGrid; kMax=params.kMax; kMin=params.kMin; kPts=params.kPts; noWorkWage=params.noWorkWage; numOfAgents=params.numOfAgents; numOfPeriods=params.numOfPeriods; numOfPeriodsRemoved=params.numOfPeriodsRemoved; params=params.params; phi=params.phi; zGrid=params.zGrid; zPts=params.zPts; zTrans=params.zTrans; 
+NUM_THREADS=params.NUM_THREADS; PRINT_FREQ=params.PRINT_FREQ; PRINT_FREQ_SIMULATE=params.PRINT_FREQ_SIMULATE; PROFILE=params.PROFILE; TOL_EQ=params.TOL_EQ; TOL_OPT=params.TOL_OPT; TOL_VFI=params.TOL_VFI; ZETrans=params.ZETrans; alpha=params.alpha; betaGrid=params.betaGrid; betaPts=params.betaPts; betaTrans=params.betaTrans; delta=params.delta; eBetaEPrimeBetaPrimeCondZZPrime=params.eBetaEPrimeBetaPrimeCondZZPrime; eBetaEPrimeBetaPrimeZZPrime=params.eBetaEPrimeBetaPrimeZZPrime; eGrid=params.eGrid; ePts=params.ePts; fullDiscountedTrans=params.fullDiscountedTrans; fullTrans=params.fullTrans; i_beta=params.i_beta; i_betap=params.i_betap; i_e=params.i_e; i_ep=params.i_ep; i_z=params.i_z; i_zp=params.i_zp; kBarGrid=params.kBarGrid; kBarPts=params.kBarPts; kGrid=params.kGrid; kMax=params.kMax; kMin=params.kMin; kPts=params.kPts; noWorkWage=params.noWorkWage; numOfAgents=params.numOfAgents; numOfPeriods=params.numOfPeriods; numOfPeriodsRemoved=params.numOfPeriodsRemoved; phi=params.phi; zGrid=params.zGrid; zPts=params.zPts; zTrans=params.zTrans; 
 
 value = zeros(zPts, ePts, betaPts, kPts, kBarPts);
 kpPolicy = zeros(zPts, ePts, betaPts, kPts, kBarPts);
@@ -30,7 +30,7 @@ while (metric > TOL_VFI)
             % interpoate at kBarPrime
             valueAtKBarPrime = myppualMKL_CMEX(int32(8), {kBarGrid}, valueKBarSplineCoefs, [], int32(4), int32(ePts*betaPts*kPts), [], kBarPrime, [], int32([1:ePts*betaPts*kPts]')-1, []);
             
-            % treat K as continuous variable, and Beta and E as vector
+            % treat k as continuous variable, and beta and e as vector
             % functions
             valueKSplineCoefs = myppualMKL_CMEX(int32(-8), {kGrid}, reshape(valueAtKBarPrime, [], kPts)', [], int32(4), int32(ePts*betaPts), [], [], [], []);
             

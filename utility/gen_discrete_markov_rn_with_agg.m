@@ -10,10 +10,12 @@ for t=1:lenPath-1
     for j=1:numStates
         % Find samples that has shock j
         idxOfShockJ = find(shock(:,t)==j);
-        % Generate random number ~ Un[0,1]
-        un = rand(length(idxOfShockJ),1);
+        % Fill in numbers based on distribution weights
+        un = linspace(1e-16,1-1e-16,length(idxOfShockJ));
         % Look up trans_j
-        [~,shock(idxOfShockJ,t+1)] = histc(un, [0 cumTrans(j,:,aggIdx(t))]);
+        [~,shock(idxOfShockJ,t+1)] = histc(un, [0 cumTrans(j,:,aggIdx(t),aggIdx(t+1))]);
+        % Shuffle random numbers
+        shock(idxOfShockJ,t+1) = Shuffle(shock(idxOfShockJ,t+1));
     end
 end
 end

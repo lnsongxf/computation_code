@@ -7,14 +7,8 @@ params = setup;
 params = common(params);
 write_params(params);
 
+rng(0823);
 rn = gen_rn(params);
-
-% tic;
-% vfiRslt = vfi(params);
-% toc;
-
-% vfiRslt = load('mat/vfiRslt.mat');
-% vfiRslt = vfiRslt.vfiRslt;
 
 metric = 1;
 iter = 0;
@@ -22,6 +16,7 @@ iter = 0;
 phi = params.phi;
 phi_new = params.phi;
 vfiRslt = [];
+phiUpdateSpeed = 0.5;
 while metric > params.TOL_EQ
     params.phi = phi;
     fprintf('VFI...\n');
@@ -42,9 +37,12 @@ while metric > params.TOL_EQ
     metric = max(abs(phi_new(:)-phi(:)));
     iter = iter+1;
     fprintf('iter: %d, metric: %g\n',iter,metric);
-    phi = phi_new*0.1 + phi*(1-0.1);
+    phi = phi_new*phiUpdateSpeed + phi*(1-phiUpdateSpeed);
     phi
+    aggRslt
 end
+
+save('mat/eq.mat','phi','aggRslt');
 
 
 

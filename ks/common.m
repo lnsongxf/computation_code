@@ -1,9 +1,5 @@
 function newParams = common(params)
 v2struct(params);
-% discount transition matrix of beta
-% betaDiscountedTrans = betaTrans .* repmat(betaGrid(:), 1, betaPts);
-% betaDiscountedTrans = betaTrans .* repmat(betaGrid(:)', betaPts, 1);
-
 % Joint distribution
 ZETrans = reshape(ZETrans, [ePts zPts ePts zPts]);
 % permute ZETrans to (z,e) -> (z',e')
@@ -29,19 +25,12 @@ end
 % % now transition matrix is in the order (z, e, beta) -> (z', e', beta')
 fullDiscountedTrans = reshape(fullDiscountedTrans, [zPts*betaPts*ePts zPts*betaPts*ePts]);
 
-% conditional transition matrix e -> e' | z
-eEPrimeZZPrime = permute(reshape(ZETrans, [zPts ePts zPts ePts]), [2 4 1 3]);
-eTransConditionalOnZ = reshape(sum(eEPrimeZZPrime, 4), [ePts ePts zPts]);
 
-% Conditional transition matrix (e,beta) -> (e',beta') | z
-eBetaEPrimeBetaPrimeZZprime = permute(fullTrans,[2,3,5,6,1,4]);
-eBetaTransConditionalOnZ = reshape(sum(eBetaEPrimeBetaPrimeZZprime,6),[ePts*betaPts,ePts*betaPts,zPts]);
+% Conditional transition matrix (e,beta) -> (e',beta') | (z,z')
+eBetaEPrimeBetaPrimeZZPrime = permute(fullTrans,[2,3,5,6,1,4]);
+eBetaEPrimeBetaPrimeCondZZPrime = reshape(eBetaEPrimeBetaPrimeZZPrime,[ePts*betaPts,ePts*betaPts,zPts,zPts]);
+eBetaEPrimeBetaPrimeCondZZPrime = eBetaEPrimeBetaPrimeCondZZPrime ./ sum(eBetaEPrimeBetaPrimeCondZZPrime,2);
 
-% unconditional transition matrix
-eBetaTrans = sum(eBetaTransConditionalOnZ,3)/2;
-eBetaTransInv = eBetaTrans^1000;
-eBetaTransInv = eBetaTransInv(1,:);
-
-clear Params;
+clear params;
 newParams = v2struct();
 end
