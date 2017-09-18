@@ -14,7 +14,7 @@ c = reshape(kGrid,[1,1,kPts])*(1+r) + reshape(eGrid,[1,ePts,1])*w - reshape(kGri
 % Start iterations
 metric = 1;
 iter = 0;
-while (metric > TOL_VFI && iter<=MAXITER_VFI)
+while (metric > TOL_VFI && iter<=inf)
     % Compute value for each (kp,e,k)
     vFuture = permute(beta*eTrans*v,[2,1]);
     valueOfKp = u(c,gamma) + reshape(vFuture,[kPts,ePts,1]);

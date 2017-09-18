@@ -10,7 +10,7 @@ w = 1;
 params = setup;
 write_params(params);
 params.PRINT_FREQ = 1;
-params.MAXITER_VFI = 10;
+params.MAXITER_VFI = 100;
 
 [kpPolicy,v] = solve_decision_func_approx_vec(w,r,params);
 
