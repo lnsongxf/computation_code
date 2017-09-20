@@ -1,0 +1,1 @@
+TEMP=[Y-N.*z;-C-G+Y-Theta.*Y.*(Pi-1.0).^2.*(1.0./2.0);-R0+(ii+1.0)./Pi_1;-Dividend+Y-N.*wage-Theta.*Y.*(Pi-1.0).^2.*(1.0./2.0);-C.^(-Gamma).*wage+N.^(1.0./Nu).*eta2;-C.^(-Gamma)+(Beta.*BetaShock.*C_1.^(-Gamma).*eta1.*(ii+1.0))./Pi_1;-Pi.*(Pi-1.0)-(Eta.*((Eta-1.0)./Eta-wage./z))./Theta+(Pi_1.^2.*Y_1.*(Pi_1-1.0))./(Y.*(ii+1.0));B+G-tau.*tax_unit-(B.*Pi_1)./(ii+1.0)];

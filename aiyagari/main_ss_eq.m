@@ -8,9 +8,9 @@ rng(0823) % Set the seed
 rn = gen_rn(params);
 
 rMin = 0.000;
-rMax = 0.01;
+rMax = 0.02;
 
-params.PRINT_FREQ = 1e3;
+params.PRINT_FREQ = inf;
 options = optimset('TolX',params.TOL_EQ);
 rEq = fzero(@(r) compute_r_implied(r,rn,params)-r, [rMin,rMax], options);
 
@@ -22,7 +22,7 @@ end
 function rImplied = compute_r_implied(r,rn,params)
 
 eq = compute_partial_eq_given_r(r,rn,params);
-K = eq.aggRslt.K_t(end);
+K = eq.aggRslt.K;
 L = eq.aggRslt.L;
 
 delta = params.delta;

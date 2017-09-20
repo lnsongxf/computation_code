@@ -7,7 +7,7 @@ addpath('./solve_decision');
 addpath('../utility');
 
 % Preferences
-beta = 0.99;
+beta = 0.98;
 gamma = 1; % log utility
 
 % Labor shocks
@@ -28,17 +28,21 @@ kMax = 5e3;
 kPts = 200;
 kShift = 1e-2;
 kGrid = exp(linspace( log(kMin+kShift),log(kMax+kShift),kPts ))-kShift;
+kGrid(1) = kMin; %Rouding error
 
 % For simulations
 numAgents = 2e3;
 T = 1.0e3;
 
+% Transition path
+transT = 200;
+
 % Computation related
-TOL_OPT = 1e-8;
-TOL_VFI = 1e-6;
-TOL_DIST = 1e-6;
+TOL_OPT = 1e-12;
+TOL_VFI = 1e-12;
+TOL_DIST = 1e-12;
 MAXITER_VFI = inf;
-TOL_EQ = 1e-6;
+TOL_EQ = 1e-12;
 PRINT_FREQ = 50;
 NUM_THREADS = feature('numcores')*2;
 

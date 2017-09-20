@@ -10,10 +10,18 @@ w = (1-alpha) * KLRatio^alpha;
 
 % Compute policie functions
 [kpPolicy,vp] = solve_decision_egm(w,r,params);
+
+%{
 % Simulate
 dist = simulate(kpPolicy,rn,w,r,params);
 % Aggregate
 aggRslt = aggregate(dist,rn,w,r,params);
+%}
+
+% Use non-stochastic simulation
+dist = simulate_histogram(kpPolicy,w,r,params);
+% Aggregate non-stochastic simulation results
+aggRslt = aggregate_histogram(dist,w,r,params);
 
 eq.kpPolicy = kpPolicy;
 eq.vp = vp;
